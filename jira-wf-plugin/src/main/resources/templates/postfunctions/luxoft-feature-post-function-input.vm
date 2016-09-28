@@ -1,0 +1,16 @@
+<tr>
+    <td class="fieldLabelArea">
+        Issue Type (e.g. Feature, Defect, Task):
+    </td>
+    <td nowrap>
+        <input name="issueTypeName" id="issueTypeName" value="$issueTypeName" />
+    </td>
+</tr>
+<tr>
+    <td class="fieldLabelArea">
+        Date Field Name to set (e.g. Development Date, Reviewed Date):
+    </td>
+    <td nowrap>
+        <input name="dateFieldName" id="dateFieldName" value="$dateFieldName" />
+    </td>
+</tr>

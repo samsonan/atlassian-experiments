@@ -1,0 +1,36 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="jira-custom-field"/>
+    
+    <!-- add our web resources -->
+    <web-resource key="jira-custom-field-resources" name="jira-custom-field Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        
+        <resource type="download" name="jira-custom-field.css" location="/css/jira-custom-field.css"/>
+        <resource type="download" name="jira-custom-field.js" location="/js/jira-custom-field.js"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>jira-custom-field</context>
+    </web-resource>
+    
+	<customfield-type key="ro-assignee-field" name="Readonly Assignee Field" class="com.atlassian.plugins.tutorial.jira.customfield.ReadOnlyAssigneeField">
+		<resource type="velocity" name="view" location="view-user.vm"/> <!-- templates/plugins/fields/view/view-user.vm -->
+		<!-- resource type="velocity" name="column-view" location="view-user.vm"/>
+		<resource type="velocity" name="xml" location="view-user.vm"/-->
+		<resource type="velocity" name="edit" location="edit-user-ro.vm"/>
+	</customfield-type>    
+	
+	<customfield-type key="ro-parent-fix-field" name="Readonly Parent Fix Version Field" class="com.atlassian.plugins.tutorial.jira.customfield.ParentFixField">
+		<resource type="velocity" name="view" location="view-basictext.vm"/>
+		<resource type="velocity" name="edit" location="edit-basictext-ro.vm"/>
+	</customfield-type>  	
+    
+</atlassian-plugin>

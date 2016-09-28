@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>Luxoft Tutorial Simple Admin Plugin</title>
+    <meta name="decorator" content="atl.admin" />
+    $webResourceManager.requireResource("com.atlassian.plugins.tutorial.jira.rest-ui-plugin:resources")
+    <meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
+
+	<meta name="admin.active.section" content="system.admin/globalsettings">
+	
+  </head>
+  <body>
+   
+    <form id="admin" class="aui" method="POST">
+    
+    	<fieldset>
+			<div class="field-group">
+	        	<label for="name">$i18n.getText("my.plugin.name.label")</label>
+	        	<input class="text medium-field" type="text" id="name-text" name="name-text" value="$name-text" />		
+	      	</div>
+	
+			<div class="field-group">
+		        <label for="select-example">$i18n.getText("my.plugin.dropdown.label")</label>
+		        <select class="select" id="select-example" name="select-example">
+			            <option #if( $select-example == 'Select' ) selected #end >Select</option>
+			            <option #if( $select-example == 'Option 1' ) selected #end >Option 1</option>
+			            <option #if( $select-example == 'Option 2' ) selected #end >Option 2</option>
+			            <option #if( $select-example == 'Option 3' ) selected #end >Option 3</option>
+			            <option #if( $select-example == 'Option 4' ) selected #end >Option 4</option>
+		        </select>
+			</div>
+		</fieldset>
+
+		<fieldset class="group">
+			<legend><span>$i18n.getText("my.plugin.checkbox.label")</span></legend>
+	        <div class="checkbox">
+	            <input class="checkbox" type="checkbox" name="checkBoxOne" id="checkBoxOne"  #if( $checkbox-example == 'checkBoxOne' ) checked #end >
+	            <label for="checkBoxOne">Task</label>
+	        </div>
+	        <div class="checkbox">
+	            <input class="checkbox" type="checkbox" name="checkBoxTwo" id="checkBoxTwo" #if( $checkbox-example == 'checkBoxTwo' ) checked #end>
+	            <label for="checkBoxTwo">Defect</label>
+	        </div>
+	    </fieldset>
+
+    
+	    <div class="buttons-container">
+	        <div class="buttons">
+	            <input class="button submit" type="submit" value="$i18n.getText("my.plugin.save.label")" id="save-button">
+	            <a class="cancel" href="#">Cancel</a>
+	        </div>
+	    </div>
+
+    </form>
+  </body>
+</html>

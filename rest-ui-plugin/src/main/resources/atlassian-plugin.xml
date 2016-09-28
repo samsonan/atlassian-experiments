@@ -1,0 +1,67 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}"
+	plugins-version="2">
+	<plugin-info>
+		<description>${project.description}</description>
+		<version>${project.version}</version>
+		<vendor name="${project.organization.name}" url="${project.organization.url}" />
+		<param name="plugin-icon">images/pluginIcon.png</param>
+		<param name="plugin-logo">images/pluginLogo.png</param>
+	</plugin-info>
+
+	<!-- add our i18n resource -->
+	<resource type="i18n" name="i18n" location="rest-ui-plugin" />
+
+	<!-- add our web resources -->
+	<web-resource key="rest-ui-plugin-resources" name="rest-ui-plugin Web Resources">
+		<dependency>com.atlassian.auiplugin:ajs</dependency>
+
+		<resource type="download" name="rest-ui-plugin.css" location="/css/rest-ui-plugin.css" />
+		<resource type="download" name="rest-ui-plugin.js" location="/js/rest-ui-plugin.js" />
+		<resource type="download" name="images/" location="/images" />
+
+		<context>rest-ui-plugin</context>
+	</web-resource>
+
+	<!-- Servlet-style plugin from admin section -->
+
+	<component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager" />
+	<component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider" />
+	<component-import key="renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
+
+	<servlet key="admin-servlet" class="com.atlassian.plugins.tutorial.jira.AdminServlet">
+		<url-pattern>/tutorial/admin</url-pattern>
+	</servlet>
+	
+	<web-item key="jira-menu-item" name="Tutorial Admin Plugin"
+		section="system.admin/globalsettings" weight="10" application="jira">
+		 <condition class="com.atlassian.jira.plugin.webfragment.conditions.UserIsAdminCondition"/>
+		<label key="rest.admin.plugin" />
+		<link linkId="tutorial-admin-link">/plugins/servlet/tutorial/admin</link>
+	</web-item>	
+
+	<!-- Servlet-style plugin from top section -->
+	
+	<web-section key="my_section_2" name="my-section-2" location="tutor_plugins_link" weight="1000"/>
+	
+	<web-item key="tutor_plugins" name="My Tutorial Plugins" section="system.top.navigation.bar" weight="1000">
+	    <label key="my.plugins"/>
+	    <link linkId="tutor_plugins_link"/>
+	</web-item>
+	
+	<web-item key="admin_rest_servlet_plugin" name="Admin Rest Plugin" section="tutor_plugins_link/my_section_2" weight="1000">
+		 <condition class="com.atlassian.jira.plugin.webfragment.conditions.UserIsAdminCondition"/>
+	    <label key="rest.admin.plugin"></label>
+	    <link linkId="admin-rest-servlet-plugin-link">/plugins/servlet/tutorial/admin</link>
+	</web-item>
+
+	<!-- REST part -->
+	<component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory" />
+	<component-import key="transactionTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate" />
+
+	<rest key="rest" path="/tutorial-plugin" version="1.0">
+  		<description>Provides REST resources.</description>
+	</rest>
+	
+	
+
+</atlassian-plugin>

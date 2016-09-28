@@ -48,9 +48,10 @@ public class AdminServlet extends HttpServlet {
         
         context.put("name-text", pluginSettings.get(PLUGIN_STORAGE_KEY + ".name-text"));
         context.put("select-example", pluginSettings.get(PLUGIN_STORAGE_KEY + ".select-example"));        
-        context.put("checkbox-example", pluginSettings.get(PLUGIN_STORAGE_KEY + ".checkbox-example"));        
+        context.put("checkbox-1", pluginSettings.get(PLUGIN_STORAGE_KEY + ".checkbox-1"));        
+        context.put("checkbox-2", pluginSettings.get(PLUGIN_STORAGE_KEY + ".checkbox-2"));        
         
-        log.debug("context[name-text]:"+context.get("name-text")+"; context[checkbox-example]:"+context.get("checkbox-example"));
+        log.debug("context[checkbox-2]:"+context.get("checkbox-2")+"; context[checkbox-1]:"+context.get("checkbox-1"));
         
         response.setContentType("text/html;charset=utf-8");
         
@@ -65,9 +66,8 @@ public class AdminServlet extends HttpServlet {
         pluginSettings.put(PLUGIN_STORAGE_KEY + ".name-text", req.getParameter("name-text"));
         pluginSettings.put(PLUGIN_STORAGE_KEY + ".select-example", req.getParameter("select-example"));
         
-        String chkBox = req.getParameter("checkBoxOne")!=null?"checkBoxOne":(req.getParameter("checkBoxTwo")!=null?"checkBoxTwo":null);
-        if (chkBox != null)
-            pluginSettings.put(PLUGIN_STORAGE_KEY + ".checkbox-example", chkBox);
+        pluginSettings.put(PLUGIN_STORAGE_KEY + ".checkbox-1", req.getParameter("checkbox-1"));
+        pluginSettings.put(PLUGIN_STORAGE_KEY + ".checkbox-2", req.getParameter("checkbox-2"));
         
         response.sendRedirect("admin"); //back to self
     }

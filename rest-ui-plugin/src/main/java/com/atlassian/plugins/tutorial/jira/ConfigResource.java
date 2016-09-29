@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.atlassian.sal.api.pluginsettings.PluginSettings;
 import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.sal.api.transaction.TransactionCallback;
 import com.atlassian.sal.api.transaction.TransactionTemplate;
@@ -26,12 +27,10 @@ import com.atlassian.sal.api.user.UserManager;
 @Path("/")
 public class ConfigResource {
 
-    private final UserManager userManager;
     private final PluginSettingsFactory pluginSettingsFactory;
     private final TransactionTemplate transactionTemplate;
 
     public ConfigResource(UserManager userManager, PluginSettingsFactory pluginSettingsFactory, TransactionTemplate transactionTemplate) {
-        this.userManager = userManager;
         this.pluginSettingsFactory = pluginSettingsFactory;
         this.transactionTemplate = transactionTemplate;
     }
@@ -40,12 +39,18 @@ public class ConfigResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@Context HttpServletRequest request) {
 
-        return Response.ok(transactionTemplate.execute(new TransactionCallback<Config>() {
+        return Response.ok(transactionTemplate.execute(new TransactionCallback<PluginConfigBody>() {
          
-            public Config doInTransaction() {
-                Config config = new Config();
-                config.setName("some name");
-                config.setValue(42);
+            public PluginConfigBody doInTransaction() {
+
+                PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();                
+                
+                PluginConfigBody config = new PluginConfigBody();
+                config.setName(pluginSettings.get(AdminServlet.PLUGIN_STORAGE_KEY + ".name-text")+"");
+                config.setSelectOption(pluginSettings.get(AdminServlet.PLUGIN_STORAGE_KEY + ".select-option")+"");
+                config.setCheckboxOne(pluginSettings.get(AdminServlet.PLUGIN_STORAGE_KEY + ".checkbox-1")!=null);
+                config.setCheckboxTwo(pluginSettings.get(AdminServlet.PLUGIN_STORAGE_KEY + ".checkbox-2")!=null);
+                
                 return config;
             }
             
@@ -54,11 +59,19 @@ public class ConfigResource {
 
     @XmlRootElement
     @XmlAccessorType(XmlAccessType.FIELD)
-    public static final class Config {
+    public static final class PluginConfigBody {
+        
         @XmlElement
         private String name;
+        
         @XmlElement
-        private int value;
+        private String selectOption;
+        
+        @XmlElement
+        private boolean checkboxOne;
+        
+        @XmlElement
+        private boolean checkboxTwo;
 
         public String getName() {
             return name;
@@ -68,14 +81,32 @@ public class ConfigResource {
             this.name = name;
         }
 
-        public int getValue() {
-            return value;
+        public String getSelectOption() {
+            return selectOption;
         }
 
-        public void setValue(int value) {
-            this.value = value;
+        public void setSelectOption(String selectOption) {
+            this.selectOption = selectOption;
         }
 
+        public boolean isCheckboxOne() {
+            return checkboxOne;
+        }
+
+        public void setCheckboxOne(boolean checkboxOne) {
+            this.checkboxOne = checkboxOne;
+        }
+
+        public boolean isCheckboxTwo() {
+            return checkboxTwo;
+        }
+
+        public void setCheckboxTwo(boolean checkboxTwo) {
+            this.checkboxTwo = checkboxTwo;
+        }
+
+
+        
     }
 
 }

@@ -19,13 +19,13 @@
 	      	</div>
 	
 			<div class="field-group">
-		        <label for="select-example">$i18n.getText("my.plugin.dropdown.label")</label>
-		        <select class="select" id="select-example" name="select-example">
-			            <option #if( $select-example == 'Select' ) selected #end >Select</option>
-			            <option #if( $select-example == 'Option 1' ) selected #end >Option 1</option>
-			            <option #if( $select-example == 'Option 2' ) selected #end >Option 2</option>
-			            <option #if( $select-example == 'Option 3' ) selected #end >Option 3</option>
-			            <option #if( $select-example == 'Option 4' ) selected #end >Option 4</option>
+		        <label for="select-option">$i18n.getText("my.plugin.dropdown.label")</label>
+		        <select class="select" id="select-option" name="select-option">
+			            <option #if( $select-option == 'Select' ) selected #end >Select</option>
+			            <option #if( $select-option == 'Option 1' ) selected #end >Option 1</option>
+			            <option #if( $select-option == 'Option 2' ) selected #end >Option 2</option>
+			            <option #if( $select-option == 'Option 3' ) selected #end >Option 3</option>
+			            <option #if( $select-option == 'Option 4' ) selected #end >Option 4</option>
 		        </select>
 			</div>
 		</fieldset>

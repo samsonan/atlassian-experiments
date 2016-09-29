@@ -27,7 +27,8 @@ public class AdminServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(AdminServlet.class);
     
     private static final long serialVersionUID = 4361736855786716158L;
-    private static final String PLUGIN_STORAGE_KEY = "com.atlassian.plugins.tutorial.jira.rest-ui-plugin";    
+    
+    static final String PLUGIN_STORAGE_KEY = "com.atlassian.plugins.tutorial.jira.rest-ui-plugin";    
     
     private final TemplateRenderer templateRenderer;
     private final PluginSettingsFactory pluginSettingsFactory;
@@ -47,7 +48,7 @@ public class AdminServlet extends HttpServlet {
         Map<String, Object> context = new HashMap<>();
         
         context.put("name-text", pluginSettings.get(PLUGIN_STORAGE_KEY + ".name-text"));
-        context.put("select-example", pluginSettings.get(PLUGIN_STORAGE_KEY + ".select-example"));        
+        context.put("select-option", pluginSettings.get(PLUGIN_STORAGE_KEY + ".select-option"));        
         context.put("checkbox-1", pluginSettings.get(PLUGIN_STORAGE_KEY + ".checkbox-1"));        
         context.put("checkbox-2", pluginSettings.get(PLUGIN_STORAGE_KEY + ".checkbox-2"));        
         
@@ -64,7 +65,7 @@ public class AdminServlet extends HttpServlet {
         log.debug("doPost: chb1:" + req.getParameter("checkBoxOne")+"; chb2:"+req.getParameter("checkBoxTwo"));
         PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();
         pluginSettings.put(PLUGIN_STORAGE_KEY + ".name-text", req.getParameter("name-text"));
-        pluginSettings.put(PLUGIN_STORAGE_KEY + ".select-example", req.getParameter("select-example"));
+        pluginSettings.put(PLUGIN_STORAGE_KEY + ".select-option", req.getParameter("select-option"));
         
         pluginSettings.put(PLUGIN_STORAGE_KEY + ".checkbox-1", req.getParameter("checkbox-1"));
         pluginSettings.put(PLUGIN_STORAGE_KEY + ".checkbox-2", req.getParameter("checkbox-2"));

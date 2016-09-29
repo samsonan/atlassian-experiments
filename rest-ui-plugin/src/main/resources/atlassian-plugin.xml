@@ -33,6 +33,10 @@
 	<servlet key="admin-servlet" class="com.atlassian.plugins.tutorial.jira.AdminServlet">
 		<url-pattern>/tutorial/admin</url-pattern>
 	</servlet>
+
+	<servlet key="user-servlet" class="com.atlassian.plugins.tutorial.jira.UserServlet">
+		<url-pattern>/tutorial/user</url-pattern>
+	</servlet>
 	
 	<web-item key="jira-menu-item" name="Tutorial Admin Plugin"
 		section="system.admin/globalsettings" weight="10" application="jira">
@@ -54,6 +58,11 @@
 		 <condition class="com.atlassian.jira.plugin.webfragment.conditions.UserIsAdminCondition"/>
 	    <label key="rest.admin.plugin"></label>
 	    <link linkId="admin-rest-servlet-plugin-link">/plugins/servlet/tutorial/admin</link>
+	</web-item>
+
+	<web-item key="user_rest_servlet_plugin" name="User Rest Plugin" section="tutor_plugins_link/my_section_2" weight="1000">
+	    <label key="rest.user.plugin"></label>
+	    <link linkId="admin-rest-servlet-plugin-link">/plugins/servlet/tutorial/user</link>
 	</web-item>
 
 	<!-- REST part -->

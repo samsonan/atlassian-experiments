@@ -46,10 +46,10 @@ public class ConfigResource {
                 PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();                
                 
                 PluginConfigBody config = new PluginConfigBody();
-                config.setName(pluginSettings.get(AdminServlet.PLUGIN_STORAGE_KEY + ".name-text")+"");
-                config.setSelectOption(pluginSettings.get(AdminServlet.PLUGIN_STORAGE_KEY + ".select-option")+"");
-                config.setCheckboxOne(pluginSettings.get(AdminServlet.PLUGIN_STORAGE_KEY + ".checkbox-1")!=null);
-                config.setCheckboxTwo(pluginSettings.get(AdminServlet.PLUGIN_STORAGE_KEY + ".checkbox-2")!=null);
+                config.setName(pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".name-text")+"");
+                config.setSelectOption(pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".select-option")+"");
+                config.setCheckboxOne(pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".checkbox-1")!=null);
+                config.setCheckboxTwo(pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".checkbox-2")!=null);
                 
                 return config;
             }

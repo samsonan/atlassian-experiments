@@ -7,7 +7,6 @@
 		<param name="plugin-icon">images/pluginIcon.png</param>
 		<param name="plugin-logo">images/pluginLogo.png</param>
 		<param name="configure.url">/plugins/servlet/tutorial/admin</param>
-		<param name="my-key">my-value</param>
 	</plugin-info>
 
 	<!-- add our i18n resource -->
@@ -30,22 +29,27 @@
 	<component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider" />
 	<component-import key="renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
 
-	<servlet key="admin-servlet" class="com.atlassian.plugins.tutorial.jira.AdminServlet">
+	<servlet key="admin-servlet" class="com.atlassian.plugins.tutorial.jira.servlet.AdminServlet">
 		<url-pattern>/tutorial/admin</url-pattern>
 	</servlet>
 
-	<servlet key="user-servlet" class="com.atlassian.plugins.tutorial.jira.UserServlet">
+	<servlet key="user-servlet" class="com.atlassian.plugins.tutorial.jira.servlet.UserServlet">
 		<url-pattern>/tutorial/user</url-pattern>
 	</servlet>
-	
-	<web-item key="jira-menu-item" name="Tutorial Admin Plugin"
-		section="system.admin/globalsettings" weight="10" application="jira">
-		 <condition class="com.atlassian.jira.plugin.webfragment.conditions.UserIsAdminCondition"/>
-		<label key="rest.admin.plugin" />
+
+    <web-section key="admin_app_tutorial_section" name="JIRA Tutorial Section" location="admin_applications_section"
+                 weight="200">
+        <label key="application.tutor.menu.label"/>
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.UserIsAdminCondition"/>
+    </web-section>
+
+	<web-item key="tutor-app-menu-item" name="Tutorial Plugin Setup"
+		section="admin_applications_section/admin_app_tutorial_section" weight="10" application="jira">
+		<label key="application.tutor.servlet.menu.setup.label" />
 		<link linkId="tutorial-admin-link">/plugins/servlet/tutorial/admin</link>
 	</web-item>	
 
-	<!-- Servlet-style plugin from top section -->
+	<!-- Servlet-style Common User UI for top section -->
 	
 	<web-section key="my_section_2" name="my-section-2" location="tutor_plugins_link" weight="1000"/>
 	
@@ -53,15 +57,9 @@
 	    <label key="my.plugins"/>
 	    <link linkId="tutor_plugins_link"/>
 	</web-item>
-	
-	<web-item key="admin_rest_servlet_plugin" name="Admin Rest Plugin" section="tutor_plugins_link/my_section_2" weight="1000">
-		 <condition class="com.atlassian.jira.plugin.webfragment.conditions.UserIsAdminCondition"/>
-	    <label key="rest.admin.plugin"></label>
-	    <link linkId="admin-rest-servlet-plugin-link">/plugins/servlet/tutorial/admin</link>
-	</web-item>
 
 	<web-item key="user_rest_servlet_plugin" name="User Rest Plugin" section="tutor_plugins_link/my_section_2" weight="1000">
-	    <label key="rest.user.plugin"></label>
+	    <label key="tutor.user.plugin"></label>
 	    <link linkId="admin-rest-servlet-plugin-link">/plugins/servlet/tutorial/user</link>
 	</web-item>
 
@@ -73,6 +71,21 @@
   		<description>Provides REST resources.</description>
 	</rest>
 	
+	<!-- Action-style Admin UI -->
+	
+	<webwork1 key="admin.actions" name="MyJiraActions">
+	 <actions>            
+	  <action name="com.atlassian.plugins.tutorial.jira.actions.AdminAction" alias="admin_action" roles-required="admin">
+	   <view name="success">admin_action.vm</view>
+	  </action>
+	 </actions>
+	</webwork1>	
+	
+	<web-item key="tutor-app-menu-action-item" name="Tutorial Plugin Setup (Action)"
+		section="admin_applications_section/admin_app_tutorial_section" weight="10" application="jira">
+		<label key="application.tutor.action.menu.setup.label" />
+		<link linkId="tutorial-admin-link">/secure/admin_action.jspa</link>
+	</web-item>		
 	
 
 </atlassian-plugin>

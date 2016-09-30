@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Luxoft Tutorial Simple Admin Plugin</title>
+    <meta name="decorator" content="atl.admin" />
+    $webResourceManager.requireResource("com.atlassian.plugins.tutorial.jira.rest-ui-plugin:resources")
+    <meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
+
+	<meta name="admin.active.section" content="system.admin/globalsettings">
+	
+  </head>
+  <body>
+
+		<table class="aui">
+		    <thead>
+		        <tr>
+		            <th id="name">Name</th>
+		            <th id="value">Value</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr>
+		            <td>$i18n.getText("my.plugin.name.label")</td>
+		            <td>$name-text</td>
+		        </tr>
+		        <tr>
+		            <td>$i18n.getText("my.plugin.dropdown.label")</td>
+		            <td>$select-option</td>
+		        </tr>
+		        <tr>
+		            <td>$i18n.getText("my.plugin.checkbox.label")</td>
+		            <td>Task: #if (!$checkbox-1) off #else $checkbox-1 #end <br/>Defect: $checkbox-2</td>
+		        </tr>
+			</tbody>
+		</table>
+</body>
+</html>

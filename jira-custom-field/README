@@ -1,13 +1,6 @@
-You have successfully created an Atlassian Plugin!
+# JIRA Custom Field Plugin
 
-Here are the SDK commands you'll use immediately:
+Jira Custom Field Plugin which provides two custom fields:
 
-* atlas-run   -- installs this plugin into the product and starts it on localhost
-* atlas-debug -- same as atlas-run, but allows a debugger to attach at port 5005
-* atlas-cli   -- after atlas-run or atlas-debug, opens a Maven command line window:
-                 - 'pi' reinstalls the plugin into the running product instance
-* atlas-help  -- prints description for all commands in the SDK
-
-Full documentation is always available at:
-
-https://developer.atlassian.com/display/DOCS/Introduction+to+the+Atlassian+Plugin+SDK
+1. Read-only field which shows Assigned User
+2. Read-only field which shows Parent Fix Versions. Not visible for non-subtasks.

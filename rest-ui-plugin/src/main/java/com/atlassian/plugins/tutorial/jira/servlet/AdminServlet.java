@@ -60,28 +60,31 @@ public class AdminServlet extends HttpServlet {
 
         Map<String, Object> context = new HashMap<>();
 
-        context.put("name-text", pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".name-text"));
-        context.put("select-option", pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".select-option"));
-        context.put("checkbox-1", pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".checkbox-1"));
-        context.put("checkbox-2", pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".checkbox-2"));
+        Object result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_TEXT_CTRL);
+        context.put(Constants.PLUGIN_TEXT_CTRL, (result != null)?result.toString():"" );
 
-        log.debug("context[checkbox-2]:" + context.get("checkbox-2") + "; context[checkbox-1]:" + context.get("checkbox-1"));
+        context.put(Constants.PLUGIN_SELECT_CTRL, pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_SELECT_CTRL));
+                
+        result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB1_CTRL);
+        context.put(Constants.PLUGIN_CHB1_CTRL, result != null && result.toString().length() >0 );
+        
+        result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB2_CTRL);
+        context.put(Constants.PLUGIN_CHB2_CTRL, result != null && result.toString().length() >0 );
 
         response.setContentType("text/html;charset=utf-8");
-
         templateRenderer.render("admin.vm", context, response.getWriter());
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-        log.debug("doPost: chb1:" + req.getParameter("checkBoxOne") + "; chb2:" + req.getParameter("checkBoxTwo"));
-        PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();
-        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + ".name-text", req.getParameter("name-text"));
-        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + ".select-option", req.getParameter("select-option"));
 
-        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + ".checkbox-1", req.getParameter("checkbox-1"));
-        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + ".checkbox-2", req.getParameter("checkbox-2"));
+        PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();
+        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_TEXT_CTRL, req.getParameter(Constants.PLUGIN_TEXT_CTRL));
+        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_SELECT_CTRL, req.getParameter(Constants.PLUGIN_SELECT_CTRL));
+
+        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB1_CTRL, req.getParameter(Constants.PLUGIN_CHB1_CTRL));
+        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB2_CTRL, req.getParameter(Constants.PLUGIN_CHB1_CTRL));
 
         response.sendRedirect("admin"); // back to self
     }

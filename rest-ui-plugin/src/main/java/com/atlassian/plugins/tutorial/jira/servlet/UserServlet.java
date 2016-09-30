@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.atlassian.plugins.tutorial.jira.Constants;
 import com.atlassian.sal.api.pluginsettings.PluginSettings;
 import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.templaterenderer.TemplateRenderer;
@@ -22,8 +23,6 @@ import com.atlassian.templaterenderer.TemplateRenderer;
 public class UserServlet extends HttpServlet {
 
     private static final long serialVersionUID = -5382786051192011908L;
-    
-    static final String PLUGIN_STORAGE_KEY = "com.atlassian.plugins.tutorial.jira.rest-ui-plugin";    
     
     private final TemplateRenderer templateRenderer;
     private final PluginSettingsFactory pluginSettingsFactory;
@@ -39,10 +38,10 @@ public class UserServlet extends HttpServlet {
         PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();
 
         Map<String, Object> context = new HashMap<>();
-        context.put("name-text", pluginSettings.get(PLUGIN_STORAGE_KEY + ".name-text"));
-        context.put("select-option", pluginSettings.get(PLUGIN_STORAGE_KEY + ".select-option"));        
-        context.put("checkbox-1", pluginSettings.get(PLUGIN_STORAGE_KEY + ".checkbox-1"));        
-        context.put("checkbox-2", pluginSettings.get(PLUGIN_STORAGE_KEY + ".checkbox-2"));        
+        context.put(Constants.PLUGIN_TEXT_CTRL, pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_TEXT_CTRL));
+        context.put(Constants.PLUGIN_SELECT_CTRL, pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_SELECT_CTRL));        
+        context.put(Constants.PLUGIN_CHB1_CTRL, pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB1_CTRL));        
+        context.put(Constants.PLUGIN_CHB2_CTRL, pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB2_CTRL));        
         
         response.setContentType("text/html;charset=utf-8");
         templateRenderer.render("user-ro.vm", context, response.getWriter());        

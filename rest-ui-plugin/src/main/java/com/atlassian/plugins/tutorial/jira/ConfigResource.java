@@ -20,7 +20,7 @@ import com.atlassian.sal.api.user.UserManager;
 
 
 /**
- * example http://localhost:2990/jira/rest/tutorial-plugin/1.0/
+ * Simple REST support for pluggin (for getting set values) 
  * @author asamsonov
  *
  */
@@ -46,10 +46,17 @@ public class ConfigResource {
                 PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();                
                 
                 PluginConfigBody config = new PluginConfigBody();
-                config.setName(pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".name-text")+"");
-                config.setSelectOption(pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".select-option")+"");
-                config.setCheckboxOne(pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".checkbox-1")!=null);
-                config.setCheckboxTwo(pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".checkbox-2")!=null);
+                
+                Object result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_TEXT_CTRL);
+                config.setName( (result != null)?result.toString():"" );
+                
+                config.setSelectOption(pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_SELECT_CTRL)+"");
+                
+                result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB1_CTRL);
+                config.setCheckboxOne(result != null && result.toString().length() >0);
+                
+                result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB2_CTRL);
+                config.setCheckboxTwo(result != null && result.toString().length() >0);
                 
                 return config;
             }

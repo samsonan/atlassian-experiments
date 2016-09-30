@@ -28,22 +28,21 @@ public class AdminAction extends JiraWebActionSupport {
     }    
     
     public String getNameTextValue() {
-        Object result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".name-text");
+        Object result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_TEXT_CTRL);
         return (result != null)?result.toString():"";
     }
 
     public String getSelectOptionValue() {
-        return pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".select-option") + "";
+        return pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_SELECT_CTRL) + "";
     }
     
     public boolean getCheckboxOneValue() {
-        log.debug("AdminAction.getCheckboxOneValue:" + pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".checkbox-1"));
-        Object result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".checkbox-1");
+        Object result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB1_CTRL);
         return (result != null && result.toString().length() >0);
     }
     
     public boolean getCheckboxTwoValue() {
-        Object result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + ".checkbox-2");
+        Object result = pluginSettings.get(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB2_CTRL);
         return (result != null && result.toString().length() >0);
     }    
     
@@ -52,11 +51,11 @@ public class AdminAction extends JiraWebActionSupport {
         
         Map<String,String[]> requestParams = getHttpRequest().getParameterMap();
         
-        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + ".name-text", getFirstArrayValue(requestParams.get("name-text")));
-        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + ".select-option", getFirstArrayValue(requestParams.get("select-option")));
+        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_TEXT_CTRL, getFirstArrayValue(requestParams.get(Constants.PLUGIN_TEXT_CTRL)));
+        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_SELECT_CTRL, getFirstArrayValue(requestParams.get(Constants.PLUGIN_SELECT_CTRL)));
 
-        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + ".checkbox-1", getFirstArrayValue(requestParams.get("checkbox-1")));
-        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + ".checkbox-2", getFirstArrayValue(requestParams.get("checkbox-2")));
+        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB1_CTRL, getFirstArrayValue(requestParams.get(Constants.PLUGIN_CHB1_CTRL)));
+        pluginSettings.put(Constants.PLUGIN_STORAGE_KEY + "." + Constants.PLUGIN_CHB2_CTRL, getFirstArrayValue(requestParams.get(Constants.PLUGIN_CHB2_CTRL)));
         
         getHttpResponse().sendRedirect("secure/admin_action.jspa");
         
